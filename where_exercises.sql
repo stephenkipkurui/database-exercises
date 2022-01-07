@@ -39,18 +39,39 @@ SELECT COUNT(last_name) FROM employees WHERE last_name LIKE "E%E" ; # count: 899
 SELECT COUNT(last_name) FROM employees WHERE last_name LIKE "%E" ;  #count: 2492 ends with E
 
 
-
-
-
-
 #7. Find ALL current OR previous employees employees whose LAST NAME STARTS AND ENDS WITH 'E'. Enter a COMMENT WITH the number of employees whose LAST NAME STARTS AND ENDS WITH E. How many employees' LAST NAMES END WITH E, regardless of whether they START WITH E?
+SELECT last_name FROM employees WHERE last_name LIKE "E%E" ; 
+SELECT COUNT(last_name) FROM employees WHERE last_name LIKE "E%E" ;# count: 899 starts and ends with E
+SELECT COUNT(last_name) FROM employees WHERE last_name LIKE "%E" ;  #count: 2492 ends with E
+
 
 #8. Find ALL current OR previous employees hired IN the 90s. Enter a COMMENT WITH the number of employees returned.
+SELECT first_name, last_name, hire_date FROM `employees` WHERE hire_date BETWEEN '1990-01-01' AND '1999-12-31';
+
+SELECT COUNT(first_name) FROM `employees` WHERE hire_date BETWEEN '1990-01-01' AND '1999-12-31'; # count: 135214
+
+
 
 #9. Find ALL current OR previous employees born ON Christmas. Enter a COMMENT WITH the number of employees returned.
+SELECT first_name, last_name, birth_date FROM `employees` WHERE birth_date LIKE  '%12-25%';
+SELECT COUNT(first_name) FROM `employees` WHERE birth_date LIKE  '%25%'; #9994
+
 
 #10. Find ALL current OR previous employees hired IN the 90s AND born ON Christmas. Enter a COMMENT WITH the number of employees returned.
+SELECT first_name, last_name, birth_date, hire_date FROM `employees` WHERE birth_date LIKE  '%12-25%' AND `hire_date` BETWEEN 1990-01-01 AND  1999-12-31;
+
+
+
 
 #11. Find ALL current OR previous employees WITH a 'q' IN their LAST name. Enter a COMMENT WITH the number of records returned.
+SELECT last_name FROM employees WHERE last_name LIKE '%q%';
+SELECT COUNT(last_name) FROM employees WHERE last_name LIKE '%q%'; #COUNT: 1873
+
 
 #12. Find ALL current OR previous employees WITH a 'q' IN their LAST NAME but NOT 'qu'. How many employees are FOUND?
+SELECT last_name FROM employees WHERE last_name LIKE '%q%' AND last_name IS NOT LIKE '%qu%';
+
+
+
+
+
