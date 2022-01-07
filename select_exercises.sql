@@ -37,8 +37,9 @@ SELECT name from albums WHERE `release_date` >= 1990 and `release_date` <= 1999;
 #e. Albums less than 20 million certified sales:
 SELECT name FROM albums WHERE sales <= 20.0;
 
-#f. 
+#f. All albums with 'Rock'
 
+SELECT name FROM albums WHERE genre LIKE '%Rock%';
 
 
 
