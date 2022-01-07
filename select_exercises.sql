@@ -32,7 +32,9 @@ SELECT release_date FROM albums WHERE name = 'Sgt. Pepper\'s Lonely Hearts Club 
 SELECT genre FROM albums WHERE name = "Nevermind";
 
 #d. Album released in 1990s
-SELECT name from albums WHERE `release_date` >= 1990 and `release_date` <= 1999;
+SELECT name FROM albums WHERE `release_date` >= 1990 and `release_date` <= 1999;
+
+SELECt * FROM albums WHERE `release_date` BETWEEN 1990 AND 1999;
 
 #e. Albums less than 20 million certified sales:
 SELECT name FROM albums WHERE sales <= 20.0;
