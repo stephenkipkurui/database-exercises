@@ -30,5 +30,5 @@ SELECT MIN(salary) AS minimum_salary, MAX(salary)  AS maximum_salary FROM salari
 -- 6. USE your knowledge of built IN SQL functions TO generate a username FOR ALL of the employees. A username should be ALL lowercase, AND consist of the FIRST CHARACTER of the employees FIRST NAME, the FIRST 4 characters of the employees LAST NAME, an underscore, the MONTH the employee was born, AND the LAST two digits of the YEAR that they were born. Below IS an example of what the FIRST 10 ROWS will look LIKE:
 SELECT * FROM  employees;
 
-SELECT CONCAT(CONCAT(SUBSTR(LOWER(first_name), 1,1), SUBSTR(LOWER(last_name), 1, 4)),'_') AS username, first_name, last_name, birth_date FROM employees;
+SELECT CONCAT(CONCAT(SUBSTR(LOWER(first_name), 1,1), SUBSTR(LOWER(last_name), 1, 4)),'_', 'SUBSTR(birth_date), 6, 10')AS username, first_name, last_name, birth_date FROM employees;
 
