@@ -77,7 +77,8 @@ SELECT MIN(salaries.`emp_no`) AS min_salary, employees.`first_name`, employees.`
 SELECT STDDEV(salaries.`emp_no`) AS std_salary, employees.`first_name`, employees.`last_name` FROM employees INNER JOIN salaries ON salaries.`emp_no` = employees.`emp_no` GROUP BY employees.`emp_no`;
 
 -- 		g). Now find the max salary FOR EACH employee WHERE that max salary IS greater THAN $150,000.
-
+SELECT MAX(salaries.`emp_no`) AS max_salary, employees.`first_name`, employees.`last_name` FROM employees INNER JOIN salaries ON salaries.`emp_no` = employees.`emp_no` GROUP BY employees.`emp_no` HAVING max_salary > 150000;
 
 -- 		h). Find the average salary for each employee where that average salary is between $80k and $90k.
 
+SELECT MAX(salaries.`emp_no`) AS max_salary, employees.`first_name`, employees.`last_name` FROM employees INNER JOIN salaries ON salaries.`emp_no` = employees.`emp_no` GROUP BY employees.`emp_no` HAVING max_salary BETWEEN 80000 AND 90000;
