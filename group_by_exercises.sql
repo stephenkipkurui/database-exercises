@@ -30,13 +30,27 @@ SELECT COUNT(last_name) FROM employees WHERE  last_name LIKE '%q%' AND last_name
 SELECT first_name, COUNT(gender) AS gender_count FROM employees GROUP BY first_name HAVING first_name = 'Irene' OR first_name = 'Vidya' OR first_name = 'Maya';
 
 
--- 8 USING your QUERY that generates a username FOR ALL of the employees, generate a count employees FOR EACH UNIQUE username. Are there ANY DUPLICATE usernames? BONUS: How many DUPLICATE usernames are there?
+-- 8 USING your QUERY that generates a username FOR ALL of the employees, generate a count employees FOR EACH UNIQUE username. Are there ANY DUPLICATE usernames? BONUS: How many DUPLICATE usernames are there?*************************
 
 
+SELECT LOWER(
+	CONCAT(
+		SUBSTR(first_name,1,1),
+		SUBSTR(last_name,1, 4),
+		'_',
+		SUBSTR(birth_date,6, 2),
+		SUBSTR(birth_date,3, 2)
+	)) AS username, COUNT(*) FROM employees GROUP BY username ORDER BY COUNT(*) DESC;
+	
+	
 
 
 -- 9. More practice WITH AGGREGATE functions:
 -- 		a). Determine the historic average salary FOR EACH employee. WHEN you hear, READ, OR think "for each" WITH regard TO SQL, you'll probably be grouping BY that exact column.
+
+-- For each mean GROUP BY THAT referrence.
+
+
 
 
 --      b). USING the dept_emp TABLE, count how many current employees WORK IN EACH department. The QUERY result should SHOW 9 ROWS, ONE FOR EACH department AND the employee count.
