@@ -61,19 +61,20 @@ SELECT salary, AVG(salary) AS average_salaries FROM salaries GROUP BY salary;
 SELECT COUNT(*) AS employee_per_dept, dept_emp.`emp_no`, employees.`first_name`, employees.`last_name` FROM dept_emp INNER JOIN employees ON dept_emp.`emp_no` = employees.`emp_no` GROUP BY employees.`emp_no`;
 
 
--- 		c). Determine how many different salaries EACH employee has had. This includes BOTH historic AND current.
-
+-- 		c). Determine how many different salaries EACH employee has had. This includes BOTH historic AND current.***********************
 SELECT COUNT(*) AS employee_salary_count, employees.`first_name`, employees.`last_name`, salaries.`salary` FROM employees INNER JOIN salaries ON salaries.`emp_no` = employees.`emp_no`GROUP BY employees.`emp_no`;
 
 
 -- 		d). Find the maximum salary FOR EACH employee.
 
+SELECT MAX(salaries.`emp_no`) AS max_salary, employees.`first_name`, employees.`last_name` FROM employees INNER JOIN salaries ON salaries.`emp_no` = employees.`emp_no` GROUP BY employees.`emp_no`;
+
 
 -- 		e). Find the minimum salary FOR EACH employee.
-
+SELECT MIN(salaries.`emp_no`) AS min_salary, employees.`first_name`, employees.`last_name` FROM employees INNER JOIN salaries ON salaries.`emp_no` = employees.`emp_no` GROUP BY employees.`emp_no`;
 
 -- 		f). Find the standard deviation of salaries FOR EACH employee.
-
+SELECT STDDEV(salaries.`emp_no`) AS std_salary, employees.`first_name`, employees.`last_name` FROM employees INNER JOIN salaries ON salaries.`emp_no` = employees.`emp_no` GROUP BY employees.`emp_no`;
 
 -- 		g). Now find the max salary FOR EACH employee WHERE that max salary IS greater THAN $150,000.
 
