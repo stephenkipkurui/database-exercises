@@ -23,10 +23,11 @@ SELECT CONCAT(first_name, last_name) AS full_name FROM employees WHERE last_name
 SELECT last_name FROM employees WHERE  last_name LIKE '%q%' AND last_name NOT LIKE '%qu%';
 
 -- 6. ADD a COUNT() TO your results (the QUERY above) TO find the number of employees WITH the same LAST name.
+SELECT COUNT(last_name) FROM employees WHERE  last_name LIKE '%q%' AND last_name NOT LIKE '%qu%'; # 547 records
 
 
 -- 7 Find ALL ALL employees WITH FIRST NAMES 'Irena', 'Vidya', OR 'Maya'. USE COUNT(*) AND GROUP BY TO find the number of employees FOR EACH gender WITH those names.
-
+SELECT COUNT(*) FROM  employees  WHERE first_name IN ('Irene','Vidya','Maya') GROUP BY first_name;   
 
 -- 8 USING your QUERY that generates a username FOR ALL of the employees, generate a count employees FOR EACH UNIQUE username. Are there ANY DUPLICATE usernames? BONUS: How many DUPLICATE usernames are there?
 
