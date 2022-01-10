@@ -30,8 +30,9 @@ SELECT COUNT(last_name) FROM employees WHERE  last_name LIKE '%q%' AND last_name
 SELECT first_name, COUNT(gender) AS gender_count FROM employees GROUP BY first_name HAVING first_name = 'Irene' OR first_name = 'Vidya' OR first_name = 'Maya';
 
 
-
 -- 8 USING your QUERY that generates a username FOR ALL of the employees, generate a count employees FOR EACH UNIQUE username. Are there ANY DUPLICATE usernames? BONUS: How many DUPLICATE usernames are there?
+
+
 
 
 -- 9. More practice WITH AGGREGATE functions:
