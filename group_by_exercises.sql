@@ -9,7 +9,7 @@ DESCRIBE TABLE titles;
 -- Completed
 
 -- 2. IN your script, USE DISTINCT TO find the UNIQUE titles IN the titles table. How many UNIQUE titles have there ever been? Answer that IN a COMMENT IN your SQL file.
-SELECT * FROM employees;
+SELECT * FROM employees LIMIT 4;
 SELECT DISTINCT title AS distinct_titles  FROM titles; # 7 titles
 
 -- 3. WRITE a QUERY TO find a LIST of ALL UNIQUE LAST NAMES of ALL employees that START AND END WITH 'E' USING GROUP BY.
@@ -48,15 +48,22 @@ SELECT LOWER(
 -- 9. More practice WITH AGGREGATE functions:
 -- 		a). Determine the historic average salary FOR EACH employee. WHEN you hear, READ, OR think "for each" WITH regard TO SQL, you'll probably be grouping BY that exact column.
 
--- For each mean GROUP BY THAT referrence.
+-- For each mean GROUP BY THAT referrence.********************
+
+SELECT * FROM salaries LIMIT 5;
+SELECT * FROM employees LIMIT 4;
+
+SELECT salary, AVG(salary) AS average_salaries FROM salaries GROUP BY salary;
 
 
+--      b). USING the dept_emp TABLE, count how many current employees WORK IN EACH department. The QUERY result should SHOW 9 ROWS, ONE 				FOR EACH department AND the employee count.
 
-
---      b). USING the dept_emp TABLE, count how many current employees WORK IN EACH department. The QUERY result should SHOW 9 ROWS, ONE FOR EACH department AND the employee count.
+SELECT COUNT(*) AS employee_per_dept, dept_emp.`emp_no`, employees.`first_name`, employees.`last_name` FROM dept_emp INNER JOIN employees ON dept_emp.`emp_no` = employees.`emp_no` GROUP BY employees.`emp_no`;
 
 
 -- 		c). Determine how many different salaries EACH employee has had. This includes BOTH historic AND current.
+
+SELECT COUNT(*) AS employee_salary_count, employees.`first_name`, employees.`last_name`, salaries.`salary` FROM employees INNER JOIN salaries ON salaries.`emp_no` = employees.`emp_no`GROUP BY employees.`emp_no`;
 
 
 -- 		d). Find the maximum salary FOR EACH employee.
