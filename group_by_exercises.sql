@@ -19,8 +19,8 @@ SELECT last_name FROM employees WHERE last_name LIKE 'E%E' GROUP BY last_name;
 -- 4. WRITE a QUERY TO find ALL UNIQUE combinations of FIRST AND LAST NAMES of ALL employees whose LAST NAMES START AND END WITH 'E'.**********************************
 SELECT CONCAT(first_name, last_name) AS full_name FROM employees WHERE last_name  LIKE 'E%E' GROUP BY full_name;
 
--- 5. WRITE a QUERY TO find the UNIQUE LAST NAMES WITH a 'q' but NOT 'qu'. Include those NAMES IN a COMMENT IN your SQL code.
-
+-- 5. WRITE a QUERY TO find the UNIQUE LAST NAMES WITH a 'q' but NOT 'qu'. Include those NAMES IN a COMMENT IN your SQL code. ********************************** Not using GROUP BY
+SELECT last_name FROM employees WHERE  last_name LIKE '%q%' AND last_name NOT LIKE '%qu%';
 
 -- 6. ADD a COUNT() TO your results (the QUERY above) TO find the number of employees WITH the same LAST name.
 
