@@ -15,16 +15,23 @@ DESCRIBE `dept_manager`;
 -- 2). Using the example in the Associative Table Joins section as a guide, write a query that shows each department along 
 -- with the name of the current manager for that department.
 
-SELECT CONCAT(employees.`first_name`, ' ', employees.`last_name`) AS full_name, 
-departments.`dept_name` AS department_name,
-debt_manager.`dept_no` AS employee_number,
-dept_emp.`dept_no` AS depatment_number
-FROM `employees` AS ACH
-JOIN `dept_manager` ON `dept_manager`.`emp_no` = `employees`.`emp_no`
-JOIN `departments` ON `departments`.`dept_no` = `dept_emp`.`dept_no`
-JOIN `dept_manager` ON `dept_manager`.`dept_no` = `departments`.`dept_no`
+SELECT d.`dept_name` AS 'Department Name', CONCAT(e.`first_name`,' ',e.`last_name`) AS 'Department Manager' 
 
-WHERE `dept_emp`.`to_date` = '9999-01-01';
+FROM employees AS e
+
+JOIN `dept_emp` AS de 
+
+	ON de.`emp_no` = `e`.emp_no
+
+JOIN departments AS d 
+
+	ON d.dept_no = de.dept_no
+	
+JOIN dept_manager AS dm
+	
+	ON dm.`emp_no` = e.`emp_no`
+	
+WHERE dm.`to_date` ='9999-01-01' ORDER BY dept_name;
 
 
 -- 3). Find the name of all departments currently managed by women.
