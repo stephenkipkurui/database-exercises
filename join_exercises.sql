@@ -29,7 +29,7 @@ WHERE `dept_emp`.`to_date` = '9999-01-01';
 
 -- 3). Find the name of all departments currently managed by women.
 
-SELECT d.`dept_name`, CONCAT(e.`first_name`,' ',e.`last_name`) AS 'Manager Name' 
+SELECT d.`dept_name` AS 'Department Name', CONCAT(e.`first_name`,' ',e.`last_name`) AS 'Manager Name' 
 
 FROM employees AS e
 
