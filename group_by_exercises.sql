@@ -7,9 +7,10 @@ DESCRIBE TABLE titles;
 
 -- 1. Create a new file named group_by_exercises.sql
 -- Completed
+SELECT * FROM employees;
+
 
 -- 2. IN your script, USE DISTINCT TO find the UNIQUE titles IN the titles table. How many UNIQUE titles have there ever been? Answer that IN a COMMENT IN your SQL file.
-SELECT * FROM employees;
 SELECT DISTINCT title AS distinct_titles  FROM titles; # 7 titles
 
 -- 3. WRITE a QUERY TO find a LIST of ALL UNIQUE LAST NAMES of ALL employees that START AND END WITH 'E' USING GROUP BY.
