@@ -8,12 +8,13 @@ SELECT * FROM departments LIMIT 50;
 SELECT * FROM employees LIMIT 50;
 SELECT * FROM dept_emp LIMIT 50;
 SELECT * FROM salaries;
-SELECT * FROM titles LIMIT 10;
+SELECT * FROM titles LIMIT 50;
 
 DESCRIBE `dept_manager`;
 
 -- 2). Using the example in the Associative Table Joins section as a guide, write a query that shows each department along 
 -- with the name of the current manager for that department.
+
 
 SELECT d.`dept_name` AS 'Department Name', CONCAT(e.`first_name`,' ',e.`last_name`) AS 'Department Manager' 
 
@@ -34,9 +35,10 @@ JOIN dept_manager AS dm
 WHERE dm.`to_date` ='9999-01-01' ORDER BY dept_name;
 
 
+
 -- 3). Find the name of all departments currently managed by women.
 
-SELECT d.`dept_name` AS 'Department Name', CONCAT(e.`first_name`,' ',e.`last_name`) AS 'Manager Name' 
+SELECT d.`dept_name`, CONCAT(e.`first_name`,' ',e.`last_name`) AS 'Manager NAME' 
 
 FROM employees AS e
 
@@ -52,35 +54,74 @@ JOIN dept_manager AS dm
 	
 	ON dm.`emp_no` = e.`emp_no`
 	
-WHERE e.gender = 'F' AND dm.`to_date` ='9999-01-01';
+WHERE e.gender = 'F' AND dm.`to_date` ='9999-01-01' ORDER BY `dept_name`;
 
 
 
--- 4). Find all employees hired in the 90s and born on Christmas. Use datediff() function to find how many days they have been working at the company (Hint: You will also need to use NOW() or CURDATE()),
+-- 4). Find the current titles of employees currently working in the Customer Service department.**********************
 
-SELECT CONCAT(employees.`first_name`,' ', employees.`last_name`) AS full_name, 
-`dept_emp`.`dept_no` AS department_number,
+SELECT t.title AS Title
 
-DATEDIFF(CURDATE(),(employees.`hire_date`)) AS days_in_company
-FROM employees
-JOIN `dept_emp` ON `dept_emp`.`emp_no` = `employees`.`emp_no`
-WHERE  `employees`.`hire_date` LIKE '199%' AND employees.`birth_date` LIKE '%-12-25'
+FROM titles AS t 
+	
+JOIN employees AS e
+	
+	ON e.emp_no = t.emp_no
+
+JOIN dept_emp AS de 
+
+	ON de.emp_no = `e`.emp_no
+
+JOIN departments AS d 
+
+	ON d.dept_no = de.dept_no
+	
+JOIN dept_manager AS dm
+	
+	ON dm.emp_no = e.emp_no
+	
+WHERE d.dept_name = 'Customer Service';
+
 
 -- 5). Current salary of all current managers
 
-SELECT `departments`.`dept_name` AS dept_name, CONCAT(employees.`first_name`,' ',employees.`last_name`),
-salaries.`salary` AS Salary 
-FROM employees
-JOIN salaries ON `salaries`.`emp_no` = `employees`.`emp_no`
-JOIN departments ON `departments`.`dept_no` = `dept_emp`.`dept_no`
-WHERE `dept_emp`.`to_date` = '9999-01-01';
+SELECT d.`dept_name`, CONCAT(e.`first_name`,' ',e.`last_name`) AS 'Manager NAME' 
+
+FROM employees AS e
+
+JOIN `dept_emp` AS de 
+
+	ON de.`emp_no` = `e`.emp_no
+
+JOIN departments AS d 
+
+	ON d.dept_no = de.dept_no
+	
+JOIN dept_manager AS dm
+	
+	ON dm.`emp_no` = e.`emp_no`
+	
+WHERE e.gender = 'F' AND dm.`to_date` ='9999-01-01' ORDER BY `dept_name`;
+
 
 
 -- 6). num of current employees in each dept
 
-SELECT departments.`dept_no`, departments.`dept_name`, COUNT(employees.`emp_no`) 
-FROM `employees`
-JOIN employees.`emp_no`
+SELECT d.`dept_no` AS `dept_no`, d.`dept_name` AS 'dept_name', COUNT(e.`emp_no`) AS num_employees
+
+FROM employees AS e
+
+JOIN `dept_emp` AS de 
+
+	ON de.`emp_no` = `e`.emp_no
+
+JOIN departments AS d 
+
+	ON d.dept_no = de.dept_no
+	
+JOIN dept_manager AS dm
+	
+	ON dm.`emp_no` = e.`emp_no` GROUP BY `dept_no`;
 
 
 
