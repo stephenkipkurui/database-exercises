@@ -38,23 +38,23 @@ WHERE dm.`to_date` ='9999-01-01' ORDER BY dept_name;
 
 -- 3). Find the name of all departments currently managed by women.
 
-SELECT d.`dept_name`, CONCAT(e.`first_name`,' ',e.`last_name`) AS 'Manager NAME' 
+SELECT d.`dept_name`, CONCAT(e.`first_name`,' ',e.`last_name`) AS 'Manager Name' 
 
 FROM employees AS e
 
 JOIN `dept_emp` AS de 
 
-	ON de.`emp_no` = `e`.emp_no
+	ON de.`emp_no` = e.`emp_no`
 
 JOIN departments AS d 
 
-	ON d.dept_no = de.dept_no
+	ON d.`dept_no` = de.`dept_no`
 	
 JOIN dept_manager AS dm
 	
 	ON dm.`emp_no` = e.`emp_no`
 	
-WHERE e.gender = 'F' AND dm.`to_date` ='9999-01-01' ORDER BY `dept_name`;
+WHERE e.`gender` = 'F' AND dm.`to_date` ='9999-01-01' ORDER BY `dept_name`;
 
 
 
@@ -169,17 +169,95 @@ JOIN dept_manager AS dm
 WHERE  d.`dept_name` = 'Marketing';
 
 
--- 9). Which current department manager has the highest salary?
+-- 9). Which current department manager has the highest salary?************************
+SELECT e.`first_name` AS 'First Name', e.`last_name` AS 'Last Name', s.`salary` AS Salary, d.`dept_name` AS 'Department Name'
 
+FROM employees AS e 
+ 
+	JOIN `dept_manager` AS dm
+
+		ON dm.emp_no = e.`emp_no` 
+	
+
+ 	JOIN salaries AS s 
+
+		ON s.emp_no = dm.emp_no
+		
+	JOIN departments AS d
+	
+		ON d.`dept_no` = dm.`dept_no`
+		
+	
+WHERE dm.`to_date` = '9999-01-01';
 
 
 -- 10). Determine the average salary for each department. Use all salary information and round your results.
 
+SELECT d.`dept_name` AS 'Department Name', AVG(s.`salary`) AS Salary 
+
+FROM departments AS d
+
+JOIN dept_emp AS de
+
+	ON de.`dept_no` = d.`dept_no`
+	
+JOIN salaries AS s
+
+	ON s.`emp_no` = de.`emp_no`
+	
+GROUP BY `dept_name`;
 
 
--- 11). Bonus Find the names of all current employees, their department name, and their current manager's name.
+-- 11). Bonus Find the names of all current employees, their department name, and their current manager's name.**********************
 
 
+SELECT CONCAT (e.`first_name`,' ', e.`last_name`) AS 'Employee Name', 
 
--- 12. Bonus Who is the highest paid employee within each department.
+d.`dept_name` AS 'Department NAME',
 
+dm.`emp_no` AS 'Manager Name' 
+
+FROM employees AS e
+
+JOIN `dept_emp` AS de 
+
+	ON de.`emp_no` = e.`emp_no`
+
+JOIN departments AS d 
+
+	ON d.`dept_no` = de.`dept_no`
+	
+JOIN dept_manager AS dm
+	
+	ON dm.`emp_no` = e.`emp_no`
+	
+WHERE dm.`to_date` ='9999-01-01' ORDER BY `dept_name`;
+
+
+-- 12. Bonus Who is the highest paid employee within each department.************************
+
+SELECT CONCAT (e.`first_name`,' ', e.`last_name`) AS 'Full Employee Name', 
+
+d.`dept_name` AS 'Department NAME', 
+
+s.`salary` AS 'Highest Pay'
+
+FROM employees AS e
+
+JOIN `dept_emp` AS de 
+
+	ON de.`emp_no` = e.`emp_no`
+
+JOIN departments AS d 
+
+	ON d.`dept_no` = de.`dept_no`
+	
+JOIN dept_manager AS dm
+	
+	ON dm.`emp_no` = e.`emp_no`
+	
+JOIN salaries AS s
+
+	ON s.`emp_no` = de.`emp_no`
+	
+WHERE dm.`to_date` ='9999-01-01';
