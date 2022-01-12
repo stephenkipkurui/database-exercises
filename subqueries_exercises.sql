@@ -2,10 +2,23 @@
 USE employees;
 SHOW TABLES;
 
+SELECT * FROM employees LIMIT 5;
+SELECT * FROM titles LIMIT 5;
+
 
 -- 1). Find ALL the current employees WITH the same hire DATE AS employee 101010 USING a sub-query.
 
+SELECT `first_name`, `last_name`, `hire_date` 
+
+FROM employees 
+
+WHERE `hire_date` IN 
+
+(SELECT `hire_date` FROM employees WHERE emp_no = 101010);
+
 -- 2). Find ALL the titles ever held BY ALL current employees WITH the FIRST NAME Aamod.
+(SELECT * FROM employees WHERE `first_name` LIKE '%Aamod%');
+
 
 -- 3). How many people IN the employees TABLE are NO longer working FOR the company? Give the answer IN a COMMENT IN your code.
 
