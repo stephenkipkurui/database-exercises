@@ -7,7 +7,7 @@ SELECT * FROM dept_manager LIMIT 50;
 SELECT * FROM departments LIMIT 50;
 SELECT * FROM employees LIMIT 50;
 SELECT * FROM dept_emp LIMIT 50;
-SELECT * FROM salaries;
+SELECT * FROM salaries LIMIT 5;
 SELECT * FROM titles LIMIT 50;
 
 DESCRIBE `dept_manager`;
@@ -105,7 +105,7 @@ WHERE e.gender = 'F' AND dm.`to_date` ='9999-01-01' ORDER BY `dept_name`;
 
 
 
--- 6). num of current employees in each dept
+-- 6). num of current employees in each dept***********************
 
 SELECT d.`dept_no` AS `dept_no`, d.`dept_name` AS 'dept_name', COUNT(e.`emp_no`) AS num_employees
 
@@ -124,9 +124,62 @@ JOIN dept_manager AS dm
 	ON dm.`emp_no` = e.`emp_no` GROUP BY `dept_no`;
 
 
+-- 7). Which department has the highest average salary? Hint: Use current not historic information.********************
+
+
+SELECT d.`dept_no` AS `dept_no`, d.`dept_name` AS 'dept_name', (MAX(AVG(s.`salary`)) AS average_salary
+
+JOIN salaries AS s
+
+	ON s.`emp_no` = de.`emp_no`
+
+FROM employees AS e
+
+JOIN `dept_emp` AS de 
+
+	ON de.`emp_no` = `e`.emp_no
+
+JOIN departments AS d 
+
+	ON d.dept_no = de.dept_no
+	
+JOIN dept_manager AS dm
+	
+	ON dm.`emp_no` = e.`emp_no` GROUP BY `dept_no`;
+	
+
+-- 8). Who IS the highest paid employee IN the Marketing department?*************************
+
+SELECT e.`first_name` AS first_name, e.`last_name` AS last_name
+
+FROM employees AS e
+
+JOIN `dept_emp` AS de 
+
+	ON de.`emp_no` = `e`.emp_no
+
+JOIN departments AS d 
+
+	ON d.dept_no = de.dept_no
+	
+JOIN dept_manager AS dm
+	
+	ON dm.`emp_no` = e.`emp_no`
+	
+WHERE  d.`dept_name` = 'Marketing';
+
+
+-- 9). Which current department manager has the highest salary?
 
 
 
+-- 10). Determine the average salary for each department. Use all salary information and round your results.
 
 
+
+-- 11). Bonus Find the names of all current employees, their department name, and their current manager's name.
+
+
+
+-- 12. Bonus Who is the highest paid employee within each department.
 
