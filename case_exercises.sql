@@ -27,7 +27,28 @@ JOIN employees USING (`emp_no`);
     
     
   
--- WRITE a QUERY that RETURNS ALL employee NAMES (previous AND current), AND a NEW COLUMN 'alpha_group' that RETURNS 'A-H', 'I-Q', OR 'R-Z' depending ON the FIRST letter of their LAST name.
+-- 2). WRITE a QUERY that RETURNS ALL employee NAMES (previous AND current), AND a NEW COLUMN 'alpha_group' that RETURNS 'A-H', 'I-Q', OR 'R-Z' depending ON the FIRST letter of their LAST name.
+
+SELECT `first_name` AS 'First Name', `last_name` AS 'Last Name',
+
+  CASE 
+  
+    WHEN UPPER(SUBSTR(`last_name`, 1,1)) BETWEEN  'A' AND 'H' THEN 'A-H'
+    
+    WHEN UPPER(SUBSTR(`last_name`, 1,1)) BETWEEN  'I' AND 'Q' THEN 'I-Q'
+    
+    WHEN UPPER(SUBSTR(`last_name`, 1,1)) BETWEEN  'R' AND 'Z' THEN 'R-Z'
+    
+    
+  END AS 'alpha_group'
+  
+FROM `employees`
+
+JOIN `dept_emp` USING (`emp_no`);
+
+
+
+
 
 
 -- How many employees (current OR previous) were born IN EACH decade?
