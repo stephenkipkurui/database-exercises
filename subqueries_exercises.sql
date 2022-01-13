@@ -26,8 +26,8 @@ WHERE `emp_no` IN
 (SELECT emp_no FROM employees  WHERE `first_name` LIKE '%Aamod%') AND `to_date` > NOW();  
 
 
--- 3). How many people IN the employees TABLE are NO longer working FOR the company? Give the answer IN a COMMENT IN your code.
-SELECT CONCAT (first_name, ' ', last_name) AS 'Employees Not Current With Company' 
+-- 3). How many people IN the employees TABLE are NO longer working FOR the company? Give the answer IN a COMMENT IN your code. [ #30024 employees]
+SELECT COUNT(CONCAT (first_name, ' ', last_name)) AS 'Employees Not Current With Company' 
 
 FROM employees 
 
