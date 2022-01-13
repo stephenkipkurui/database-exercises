@@ -17,7 +17,13 @@ WHERE `hire_date` IN
 (SELECT `hire_date` FROM employees WHERE emp_no = 101010);
 
 -- 2). Find ALL the titles ever held BY ALL current employees WITH the FIRST NAME Aamod.
-(SELECT * FROM employees WHERE `first_name` LIKE '%Aamod%');  
+SELECT title AS 'Titles Held by Aamod'
+
+FROM titles 
+
+WHERE `emp_no` IN 
+
+(SELECT emp_no FROM employees  WHERE `first_name` LIKE '%Aamod%') AND `to_date` > NOW();  
 
 
 -- 3). How many people IN the employees TABLE are NO longer working FOR the company? Give the answer IN a COMMENT IN your code.
