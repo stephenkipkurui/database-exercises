@@ -73,7 +73,20 @@ SELECT
   END AS 'Employees Count BY Decade'
   
 FROM employees;
+
+
+
+#Correction version-------------Start ----------------
+SELECT 
+
+  CONCAT(SUBSTR(birth_date, 1, 3), '0') AS decade,
   
+  COUNT(*)
+  
+FROM employees
+
+GROUP BY decade;
+# Corrections ------------ End -----------------------
   
 
 -- 4). What IS the current average salary FOR EACH of the following department groups: R&D, Sales & Marketing, Prod & QM, Finance & HR, Customer Service?
@@ -88,7 +101,7 @@ SELECT
   
     WHEN d.dept_name IN ('Research', 'Development') THEN 'R&D'
     
-    WHEN d.dept_name IN ('Marketing', 'Sales') THEN 'Sales and Marketing' 
+    WHEN d.dept_name IN ('Marketing', 'Sales') THEN 'Sales AND Marketing' 
     
     WHEN d.dept_name IN ('Production', 'Quality Management') THEN 'Prod & QM'
     
@@ -96,19 +109,17 @@ SELECT
     
     WHEN d.dept_name IN ('Customer Service') THEN 'Customer Service'
       
-    ELSE dept_name
-
+    ELSE d.dept_name
   
-  END AS average_salary
+  END AS average_salary,
   
   AVG(s.salary) AS 'Average Salary'
-  
   
 FROM departments d
 
 JOIN dept_emp de USING (dept_no)
 
-JOIN salary s USING (emp_no)
+JOIN salaries s USING (emp_no)
 
 GROUP BY average_salary;
 
