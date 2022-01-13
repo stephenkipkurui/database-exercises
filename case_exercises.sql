@@ -75,10 +75,46 @@ SELECT
 FROM employees;
   
   
+
+-- 4). What IS the current average salary FOR EACH of the following department groups: R&D, Sales & Marketing, Prod & QM, Finance & HR, Customer Service?
+SELECT * FROM employees LIMIT 5;
+SELECT * FROM departments LIMIT 50;
+SELECT * FROM dept_emp LIMIT 5;
+SELECT * FROM salaries LIMIT 5;
+
+SELECT 
+dept_name,
+
+  CASE 
   
+    WHEN dept_name LIKE '%Marketing%' THEN AVG(salary)
     
+    WHEN (dept_name LIKE '%Research%' OR dept_name LIKE '%Development%') THEN SUM((AVG(salary)) / 2
+    
+    WHEN dept_name LIKE '%Customer Service%' THEN AVG(salary)
+    
+    WHEN (dept_name LIKE '%Production%'  OR dept_name LIKE "%Quality Management%" THEN SUM(AVG(salary)) /2
+
+  
+  END AS 'Average Salary BY Department'
+  
+  
+FROM salary
+
+JOIN dept_emp USING (emp_no)
+
+JOIN departments USING (dept_no)
+
+GROUP BY dept_name;
 
 
 
 
--- What IS the current average salary FOR EACH of the following department groups: R&D, Sales & Marketing, Prod & QM, Finance & HR, Customer Service?
+
+
+
+
+
+
+
+
