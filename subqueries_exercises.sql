@@ -4,7 +4,7 @@ SHOW TABLES;
 
 SELECT * FROM employees LIMIT 5;
 SELECT * FROM titles LIMIT 5;
-
+SELECT * FROM salaries LIMIT 5;
 
 -- 1). Find ALL the current employees WITH the same hire DATE AS employee 101010 USING a sub-query.
 
@@ -27,6 +27,14 @@ WHERE `emp_no` IN
 
 
 -- 3). How many people IN the employees TABLE are NO longer working FOR the company? Give the answer IN a COMMENT IN your code.
+SELECT CONCAT (first_name, ' ', last_name) AS 'Employees Not Current With Company' 
+
+FROM employees 
+
+WHERE emp_no IN 
+
+(SELECT emp_no FROM salaries WHERE `to_date` < '9999-01-01');
+
 
 -- 4). Find ALL the current department managers that are female. LIST their NAMES IN a COMMENT IN your code.
 
