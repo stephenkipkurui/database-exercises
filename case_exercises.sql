@@ -77,35 +77,40 @@ FROM employees;
   
 
 -- 4). What IS the current average salary FOR EACH of the following department groups: R&D, Sales & Marketing, Prod & QM, Finance & HR, Customer Service?
-SELECT * FROM employees LIMIT 5;
+/* SELECT * FROM employees LIMIT 5;
 SELECT * FROM departments LIMIT 50;
 SELECT * FROM dept_emp LIMIT 5;
-SELECT * FROM salaries LIMIT 5;
+SELECT * FROM salaries LIMIT 5; */
 
-SELECT 
-dept_name,
+SELECT dept_name,
 
   CASE 
   
-    WHEN dept_name LIKE '%Marketing%' THEN AVG(salary)
+    WHEN dept_name IN ('Research', 'Development') THEN 'R&D'
     
-    WHEN (dept_name LIKE '%Research%' OR dept_name LIKE '%Development%') THEN SUM((AVG(salary)) / 2
+    WHEN dept_name IN ('Marketing', 'Sales') THEN 'Sales and Marketing' 
     
-    WHEN dept_name LIKE '%Customer Service%' THEN AVG(salary)
+    WHEN dept_name IN ('Production', 'Quality Management') THEN 'Prod & QM'
     
-    WHEN (dept_name LIKE '%Production%'  OR dept_name LIKE "%Quality Management%" THEN SUM(AVG(salary)) /2
+    WHEN dept_name IN ('Finance', 'Human Resources') THEN 'Finance & HR'
+    
+    WHEN dept_name IN ('Customer Service') THEN 'Customer Service'
+      
+    ELSE dept_name
 
   
-  END AS 'Average Salary BY Department'
+  END AS average_salary
+  
+  AVG(salary) AS 'Average Salary'
   
   
-FROM salary
+FROM departments
 
-JOIN dept_emp USING (emp_no)
+JOIN dept_emp USING (dept_no)
 
-JOIN departments USING (dept_no)
+JOIN salary USING (emp_no)
 
-GROUP BY dept_name;
+GROUP BY average_salary;
 
 
 
