@@ -52,25 +52,27 @@ SELECT
 
   birth_date, CONCAT(first_name,' ',last_name) AS 'FULL NAME',
 
-  CASE birth_date
+  CASE
   
-    WHEN birth_date <  1900-01-01 THEN 'You were born BEFORE the 19000s '
+    WHEN birth_date <  '1900-01-01' THEN 'You were born BEFORE the 19000s in the other centuary '
    
-    WHEN birth_date BETWEEN '1900-01-01' AND '1910-12-31' THEN 'You were born IN the 1900s'
-    WHEN birth_date BETWEEN '1910-01-01' AND '1920-12-31' THEN 'You were born BETWEEN the 1910-1920'
-    WHEN birth_date BETWEEN '1930-01-01' AND '1940-12-31' THEN 'You were born BETWEEN the 1910-1920'
-    WHEN birth_date BETWEEN '1950-01-01' AND '1960-12-31' THEN 'You were born BETWEEN the 1910-1920'
-    WHEN birth_date BETWEEN '1970-01-01' AND '1980-12-31' THEN 'You were born BETWEEN the 1910-1920'
-    WHEN birth_date BETWEEN '1990-01-01' AND '2000-12-31' THEN 'You were born BETWEEN the 1910-1920'
+    WHEN birth_date BETWEEN '1900-01-01' AND '1909-12-31' THEN 'You were born IN the 1900s'
+    WHEN birth_date BETWEEN '1911-01-01' AND  '1919-12-31' THEN 'You were born BETWEEN the 1910-1920s'
+    WHEN birth_date BETWEEN '1921-01-01' AND  '1929-12-31' THEN 'You were born BETWEEN the 1921-1920s'
+    WHEN birth_date BETWEEN '1931-01-01' AND  '1939-12-31' THEN 'You were born BETWEEN the 1931-1940s'
+    WHEN birth_date BETWEEN '1941-01-01' AND  '1949-12-31' THEN 'You were born BETWEEN the 1911-1920s'
+    WHEN birth_date BETWEEN '1951-01-01' AND  '1959-12-31' THEN 'You were born BETWEEN the 1941-1950s'
+    WHEN birth_date BETWEEN '1961-01-01' AND  '1970-12-31' THEN 'You were born BETWEEN the 1951-1960s'
+    WHEN birth_date BETWEEN '1971-01-01' AND  '1980-12-31' THEN 'You were born BETWEEN the 1961-1970s'
+    WHEN birth_date BETWEEN '1981-01-01' AND  '1989-12-31' THEN 'You were born BETWEEN the 1911-1920s'
 
-  
+    WHEN birth_date BETWEEN '1991-01-01' AND  '2000-12-31' THEN 'You were born BETWEEN the 1971-1980s'
+    
+    WHEN birth_date > NOW() THEN 'You are yet to be born'
   
   END AS 'Employees Count BY Decade'
   
-  
-FROM employees
-
-GROUP BY birth_date;
+FROM employees;
   
   
   
