@@ -82,33 +82,33 @@ SELECT * FROM departments LIMIT 50;
 SELECT * FROM dept_emp LIMIT 5;
 SELECT * FROM salaries LIMIT 5; */
 
-SELECT dept_name,
+SELECT 
 
   CASE 
   
-    WHEN dept_name IN ('Research', 'Development') THEN 'R&D'
+    WHEN d.dept_name IN ('Research', 'Development') THEN 'R&D'
     
-    WHEN dept_name IN ('Marketing', 'Sales') THEN 'Sales and Marketing' 
+    WHEN d.dept_name IN ('Marketing', 'Sales') THEN 'Sales and Marketing' 
     
-    WHEN dept_name IN ('Production', 'Quality Management') THEN 'Prod & QM'
+    WHEN d.dept_name IN ('Production', 'Quality Management') THEN 'Prod & QM'
     
-    WHEN dept_name IN ('Finance', 'Human Resources') THEN 'Finance & HR'
+    WHEN d.dept_name IN ('Finance', 'Human Resources') THEN 'Finance & HR'
     
-    WHEN dept_name IN ('Customer Service') THEN 'Customer Service'
+    WHEN d.dept_name IN ('Customer Service') THEN 'Customer Service'
       
     ELSE dept_name
 
   
   END AS average_salary
   
-  AVG(salary) AS 'Average Salary'
+  AVG(s.salary) AS 'Average Salary'
   
   
-FROM departments
+FROM departments d
 
-JOIN dept_emp USING (dept_no)
+JOIN dept_emp de USING (dept_no)
 
-JOIN salary USING (emp_no)
+JOIN salary s USING (emp_no)
 
 GROUP BY average_salary;
 
