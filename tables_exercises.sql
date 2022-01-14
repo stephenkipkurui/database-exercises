@@ -41,5 +41,3 @@ DESCRIBE departments; #no numeric data type
 -- 10). SHOW the SQL that created the dept_manager table.
 SHOW CREATE TABLE `dept_manager`;
 
-
-
