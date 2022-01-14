@@ -65,12 +65,47 @@ FROM temp_payment
 
 /* 3).  Find OUT how the current average pay IN EACH department compares TO the overall, historical average pay. IN order TO make the comparison easier, you should USE the Z-score FOR salaries. IN terms of salary, what IS the best department RIGHT now TO WORK FOR? The worst? */
 USE employees;
+SHOW TABLES;
 
 SELECT * FROM employees LIMIT 5;
+SELECT * FROM dept_emp LIMIT 5;
+SELECT * FROM dept_manager LIMIT 5;
+SELECT * FROM salaries LIMIT 5;
+SELECT * FROM departments LIMIT 5;
 
-SELECT 
 
-  CONCAT(SUBSTR())
+# Current Average Salary
+SELECT d.dept_name, AVG(s.salary) AS 'Average Current Department Salary'
+
+FROM departments d 
+
+JOIN dept_emp de USING(dept_no)
+
+JOIN salaries s USING(emp_no) 
+
+WHERE s.to_date = '9999-01-01'
+
+GROUP BY dept_name; 
+
+
+# Historical Average Salary
+SELECT d.dept_name, AVG(s.salary) AS 'Average Historical Department Salary'
+
+FROM departments d 
+
+JOIN dept_emp de USING(dept_no)
+
+JOIN salaries s USING(emp_no) 
+
+WHERE s.to_date != '9999-01-01'
+
+GROUP BY dept_name; 
+
+
+
+
+
+
   
 
 
