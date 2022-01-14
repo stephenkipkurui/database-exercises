@@ -55,6 +55,3 @@ SELECT COUNT(last_name) FROM employees WHERE last_name LIKE '%q%'; #COUNT: 1873
 SELECT last_name FROM employees WHERE last_name LIKE '%q%' AND NOT  last_name LIKE '%qu%';
 
 
-
-
-
