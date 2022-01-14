@@ -44,8 +44,9 @@ SELECT * FROM temp_payment LIMIT 5;
 DESCRIBE temp_payment;
 
 
-UPDATE temp_payment SET amount = (
+UPDATE temp_payment SET amount = (amount * 100);
 
+/* UPDATE temp_payment SET amount = (
 
 SELECT 
 
@@ -59,8 +60,7 @@ SELECT
     
 FROM temp_payment
 
-
-); #*****************NEED REVIEW****************
+); */ #*****************NEED REVIEW****************
 
 
 /* 3).  Find OUT how the current average pay IN EACH department compares TO the overall, historical average pay. IN order TO make the comparison easier, you should USE the Z-score FOR salaries. IN terms of salary, what IS the best department RIGHT now TO WORK FOR? The worst? */
@@ -107,7 +107,6 @@ GROUP BY dept_name;
 
 
   
-
 
 
 
