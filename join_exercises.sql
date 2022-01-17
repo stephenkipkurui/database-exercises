@@ -1,3 +1,6 @@
+# JOIN SQL EXERCISES 
+
+
 -- 1). Use the employees database.
 SHOW DATABASES;
 USE employees; 
@@ -58,9 +61,9 @@ WHERE e.`gender` = 'F' AND dm.`to_date` ='9999-01-01' ORDER BY `dept_name`;
 
 
 
--- 4). Find the current titles of employees currently working in the Customer Service department.**********************
+-- 4). Find the current titles of employees currently working in the Customer Service department
 
-SELECT t.title AS Title
+SELECT t.title AS Title, CONCAT(e.first_name, ' ',e.last_name) 'Full Name'
 
 FROM titles AS t 
 	
@@ -80,32 +83,31 @@ JOIN dept_manager AS dm
 	
 	ON dm.emp_no = e.emp_no
 	
-WHERE d.dept_name = 'Customer Service';
+WHERE d.dept_name = 'Customer Service' AND de.to_date = '9999-01-01';
 
 
 -- 5). Current salary of all current managers
+SELECT dm.dept_no, d.dept_name, CONCAT(e.first_name, ' ', e.last_name) 'Current Manager', s.salary
 
-SELECT d.`dept_name`, CONCAT(e.`first_name`,' ',e.`last_name`) AS 'Manager NAME' 
+FROM salaries s
 
-FROM employees AS e
+JOIN dept_emp de USING (emp_no)
 
-JOIN `dept_emp` AS de 
+JOIN departments d USING (dept_no)
 
-	ON de.`emp_no` = `e`.emp_no
+JOIN employees e USING (emp_no)
 
-JOIN departments AS d 
+JOIN dept_manager dm USING (emp_no)
 
-	ON d.dept_no = de.dept_no
-	
-JOIN dept_manager AS dm
-	
-	ON dm.`emp_no` = e.`emp_no`
-	
-WHERE e.gender = 'F' AND dm.`to_date` ='9999-01-01' ORDER BY `dept_name`;
+WHERE  dm.to_date = '9999-01-01'
 
+GROUP BY  dept_no, dept_name, first_name, last_name, salary
+
+ORDER BY MAX(s.salary) DESC;
 
 
--- 6). num of current employees in each dept***********************
+
+-- 6). num of current employees in each dept
 
 SELECT d.`dept_no` AS `dept_no`, d.`dept_name` AS 'dept_name', COUNT(e.`emp_no`) AS num_employees
 
@@ -124,76 +126,64 @@ JOIN dept_manager AS dm
 	ON dm.`emp_no` = e.`emp_no` GROUP BY `dept_no`;
 
 
--- 7). Which department has the highest average salary? Hint: Use current not historic information.********************
+-- 7). Which department has the highest average salary? Hint: Use current not historic information. SALES DEPARTMENT
 
+SELECT de.dept_no, d.dept_name, AVG(s.salary)
 
-SELECT d.`dept_no` AS `dept_no`, d.`dept_name` AS 'dept_name', (MAX(AVG(s.`salary`)) AS average_salary
+FROM salaries s
 
-JOIN salaries AS s
+JOIN dept_emp de USING (emp_no)
 
-	ON s.`emp_no` = de.`emp_no`
+JOIN departments d USING (dept_no)
 
-FROM employees AS e
+WHERE s.to_date = '9999-01=01' 
 
-JOIN `dept_emp` AS de 
-
-	ON de.`emp_no` = `e`.emp_no
-
-JOIN departments AS d 
-
-	ON d.dept_no = de.dept_no
-	
-JOIN dept_manager AS dm
-	
-	ON dm.`emp_no` = e.`emp_no` GROUP BY `dept_no`;
+GROUP BY  dept_no, dept_name, salary ORDER BY AVG(s.salary) DESC LIMIT 1;
 	
 
--- 8). Who IS the highest paid employee IN the Marketing department?*************************
+-- 8). Who IS the highest paid employee IN the Marketing department? AKEMI WARWICK
 
-SELECT e.`first_name` AS first_name, e.`last_name` AS last_name
+SELECT de.dept_no, d.dept_name, e.first_name, e.last_name, MAX(s.salary)
 
-FROM employees AS e
+FROM salaries s
 
-JOIN `dept_emp` AS de 
+JOIN dept_emp de USING (emp_no)
 
-	ON de.`emp_no` = `e`.emp_no
+JOIN departments d USING (dept_no)
 
-JOIN departments AS d 
+JOIN employees e USING (emp_no)
 
-	ON d.dept_no = de.dept_no
-	
-JOIN dept_manager AS dm
-	
-	ON dm.`emp_no` = e.`emp_no`
-	
-WHERE  d.`dept_name` = 'Marketing';
+WHERE  d.dept_name = 'Marketing' 
+
+GROUP BY  dept_no, dept_name, first_name, last_name
+
+ORDER BY MAX(s.salary) DESC LIMIT 1;
 
 
--- 9). Which current department manager has the highest salary?************************
-SELECT e.`first_name` AS 'First Name', e.`last_name` AS 'Last Name', s.`salary` AS Salary, d.`dept_name` AS 'Department Name'
 
-FROM employees AS e 
- 
-	JOIN `dept_manager` AS dm
+-- 9). Which current department manager has the highest salary? VISHWANI MINAKAWA
+SELECT dm.dept_no, d.dept_name, CONCAT(e.first_name, ' ', e.last_name) 'Current Manager', s.salary
 
-		ON dm.emp_no = e.`emp_no` 
-	
+FROM salaries s
 
- 	JOIN salaries AS s 
+JOIN dept_emp de USING (emp_no)
 
-		ON s.emp_no = dm.emp_no
-		
-	JOIN departments AS d
-	
-		ON d.`dept_no` = dm.`dept_no`
-		
-	
-WHERE dm.`to_date` = '9999-01-01';
+JOIN departments d USING (dept_no)
+
+JOIN employees e USING (emp_no)
+
+JOIN dept_manager dm USING (emp_no)
+
+WHERE  dm.to_date = '9999-01-01'
+
+GROUP BY  dept_no, dept_name, first_name, last_name, salary
+
+ORDER BY MAX(s.salary) DESC LIMIT 1;
 
 
 -- 10). Determine the average salary for each department. Use all salary information and round your results.
 
-SELECT d.`dept_name` AS 'Department Name', AVG(s.`salary`) AS Salary 
+SELECT d.`dept_name` AS 'Department NAME', ROUND(AVG(s.`salary`), 2) AS Salary 
 
 FROM departments AS d
 
@@ -208,14 +198,9 @@ JOIN salaries AS s
 GROUP BY `dept_name`;
 
 
--- 11). Bonus Find the names of all current employees, their department name, and their current manager's name.**********************
+-- 11). Bonus Find the names of all current employees, their department name, and their current manager's name.
 
-
-SELECT CONCAT (e.`first_name`,' ', e.`last_name`) AS 'Employee Name', 
-
-d.`dept_name` AS 'Department NAME',
-
-dm.`emp_no` AS 'Manager Name' 
+SELECT CONCAT (e.`first_name`,' ', e.`last_name`) AS 'Employee Name', d.`dept_name` AS 'Department NAME', dm.`emp_no` AS 'Manager Name' 
 
 FROM employees AS e
 
@@ -234,13 +219,9 @@ JOIN dept_manager AS dm
 WHERE dm.`to_date` ='9999-01-01' ORDER BY `dept_name`;
 
 
--- 12. Bonus Who is the highest paid employee within each department.************************
+-- 12. Bonus Who is the highest paid employee within each department.
 
-SELECT CONCAT (e.`first_name`,' ', e.`last_name`) AS 'Full Employee Name', 
-
-d.`dept_name` AS 'Department NAME', 
-
-s.`salary` AS 'Highest Pay'
+SELECT CONCAT (e.`first_name`,' ', e.`last_name`) AS 'Full Employee Name', d.`dept_name` AS 'Department NAME', MAX(s.`salary`) AS 'Highest Pay'
 
 FROM employees AS e
 
@@ -260,4 +241,6 @@ JOIN salaries AS s
 
 	ON s.`emp_no` = de.`emp_no`
 	
-WHERE dm.`to_date` ='9999-01-01';
+WHERE dm.`to_date` ='9999-01-01'  
+
+GROUP BY dept_name, salary, first_name, last_name ORDER BY salary DESC ;
