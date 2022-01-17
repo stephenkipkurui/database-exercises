@@ -1,7 +1,5 @@
 #SQL FUNCTIONS EXERCISES
-SHOW DATABASES;
-
-SHOW TABLES;
+USE employees;
 SELECT * FROM employees LIMIT 5;
 SELECT * FROM salaries LIMIT 5;
 
@@ -18,7 +16,21 @@ SELECT CONCAT(first_name, ' ',last_name) AS full_name  FROM employees;
 SELECT UPPER(CONCAT(first_name, ' ',last_name)) AS full_name  FROM employees ;
 
 -- 4. Find ALL employees hired IN the 90s AND born ON Christmas. USE datediff() FUNCTION TO find how many days they have been working AT the company (Hint: You will also need TO USE NOW() OR CURDATE()),
-SELECT CONCAT(first_name, ' ', last_name) 'Employee Name: ', DATEDIFF(NOW() , hire_date) AS days_in_company FROM employees WHERE birth_date LIKE '%-12-25%' AND hire_date BETWEEN '1990-01-01' AND '1999-12-31';
+SELECT CONCAT(first_name, ' ', last_name) 'Employee Name: ', DATEDIFF(NOW() , hire_date) 
+
+  AS days_in_company 
+
+FROM employees 
+
+  WHERE birth_date 
+
+    LIKE '%-12-25%' 
+
+  AND hire_date 
+
+    BETWEEN '1990-01-01' 
+
+    AND '1999-12-31';
 
 -- 5. Find the smallest AND largest current salary FROM the salaries table.
 SELECT MIN(salary) AS minimum_salary, MAX(salary)  AS maximum_salary FROM salaries; # max 
@@ -28,9 +40,7 @@ SELECT MIN(salary) AS minimum_salary, MAX(salary)  AS maximum_salary FROM salari
 SELECT CONCAT(first_name, ' ', last_name),
 
   LOWER(
-      
       CONCAT(
-      
           SUBSTR(first_name, 1, 1),
           SUBSTR(last_name, 1, 4),
           '_',
