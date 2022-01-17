@@ -76,7 +76,7 @@ FROM employees;
 
 
 
-#Correction version-------------Start ----------------
+# [Correction version-------------Start ----------------]
 SELECT 
 
   CONCAT(SUBSTR(birth_date, 1, 3), '0') AS decade,
@@ -86,7 +86,7 @@ SELECT
 FROM employees
 
 GROUP BY decade;
-# Corrections ------------ End -----------------------
+# [ Corrections ------------ End -----------------------]
   
 
 -- 4). What IS the current average salary FOR EACH of the following department groups: R&D, Sales & Marketing, Prod & QM, Finance & HR, Customer Service?
